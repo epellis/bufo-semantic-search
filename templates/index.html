@@ -10,5 +10,12 @@
         <input type="text" id="queryInput" name="query" placeholder="Type your emotion here" required>
         <input type="submit" value="Search">
     </form>
+    {% if results %}
+    <ul>
+    {% for result in results %}
+    <li><a>{{ result.path.name }}</a></li>
+    {% endfor %}
+    </ul>
+    {% endif %}
 </body>
 </html>

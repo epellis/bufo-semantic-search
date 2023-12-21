@@ -8,9 +8,9 @@ ALL_THE_BUFO_DIR = Path("/Users/ned.ellis/all-the-bufo/all-the-bufo")
 
 
 @dataclass
-class Bufo:
+class ScoredBufo:
     path: Path
-    text_name: str
+    score: float
 
 
 def _filename_to_search_name(filepath: Path):
@@ -23,19 +23,18 @@ class BufoSearchIndex:
     def __init__(self) -> None:
         self.model = SentenceTransformer("all-MiniLM-L6-v2")
 
-        self.bufos = [
-            Bufo(path=fp, text_name=_filename_to_search_name(fp))
-            for fp in ALL_THE_BUFO_DIR.iterdir()
-        ]
+        self.bufos = list(ALL_THE_BUFO_DIR.iterdir())
 
-        self.embeddings = self.model.encode(
-            [b.text_name for b in self.bufos], convert_to_tensor=True
-        )
+        bufo_text_names = [_filename_to_search_name(fp) for fp in self.bufos]
+        self.embeddings = self.model.encode(bufo_text_names, convert_to_tensor=True)
 
-    def search(self, query: str) -> list[tuple[float, Bufo]]:
+    def search(self, query: str) -> list[ScoredBufo]:
         query_embedding = self.model.encode(query, convert_to_tensor=True)
         cos_scores = util.cos_sim(query_embedding, self.embeddings)[0]
         top_results = torch.topk(cos_scores, k=10)
 
-        bufos = [self.bufos[i] for i in top_results.indices]
-        return list(zip(top_results.values, bufos))
+        results = []
+        for idx, score in zip(top_results.indices, top_results.values):
+            results.append(ScoredBufo(path=self.bufos[idx], score=score))
+
+        return results
