@@ -1,7 +1,6 @@
-from pathlib import Path
 from flask import request
-from flask import Flask, render_template
-from bufo.search_index import BufoSearchIndex
+from flask import Flask, render_template, send_from_directory
+from bufo.search_index import BufoSearchIndex, ALL_THE_BUFO_DIR
 
 
 app = Flask(__name__)
@@ -20,3 +19,8 @@ def index():
     print(results)
 
     return render_template("index.html", results=results)
+
+
+@app.route("/assets/<filename>")
+def get_asset(filename: str):
+    return send_from_directory(ALL_THE_BUFO_DIR, filename)

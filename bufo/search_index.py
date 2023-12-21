@@ -13,7 +13,7 @@ class ScoredBufo:
     score: float
 
 
-def _filename_to_search_name(filepath: Path):
+def _fp_to_bufo_name(filepath: Path):
     text_name = re.sub(r"-", " ", filepath.name)  # Replace dashes with spaces
     text_name = re.sub(r"\.\w+$", "", text_name)  # Remove the file extension
     return text_name
@@ -25,7 +25,7 @@ class BufoSearchIndex:
 
         self.bufos = list(ALL_THE_BUFO_DIR.iterdir())
 
-        bufo_text_names = [_filename_to_search_name(fp) for fp in self.bufos]
+        bufo_text_names = [_fp_to_bufo_name(fp) for fp in self.bufos]
         self.embeddings = self.model.encode(bufo_text_names, convert_to_tensor=True)
 
     def search(self, query: str) -> list[ScoredBufo]:
@@ -35,6 +35,6 @@ class BufoSearchIndex:
 
         results = []
         for idx, score in zip(top_results.indices, top_results.values):
-            results.append(ScoredBufo(path=self.bufos[idx], score=score))
+            results.append(ScoredBufo(path=self.bufos[idx], score=float(score)))
 
         return results

@@ -13,7 +13,11 @@
     {% if results %}
     <ul>
     {% for result in results %}
-    <li><a>{{ result.path.name }}</a></li>
+    <li>
+        <p><code>{{ result.path.name }}</code> with score {{ result.score }}</p>
+        {% set image_url = "/assets/" ~ result.path.name %}
+        <img src="{{ image_url }}"/>
+    </li>
     {% endfor %}
     </ul>
     {% endif %}
