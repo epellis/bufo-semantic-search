@@ -16,8 +16,6 @@ def index():
     if query:
         results = searcher.search(query)
 
-    print(results)
-
     return render_template("index.html", results=results)
 
 
