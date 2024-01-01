@@ -1,10 +1,11 @@
 from dataclasses import dataclass
+import os
 from pathlib import Path
 import re
 from sentence_transformers import SentenceTransformer, util
 import torch
 
-ALL_THE_BUFO_DIR = Path("/Users/ned.ellis/all-the-bufo/all-the-bufo")
+ALL_THE_BUFO_DIR = Path(os.environ["ALL_THE_BUFO_DIR"])
 
 
 @dataclass
