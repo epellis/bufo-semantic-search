@@ -12,7 +12,7 @@ pip install -r requirements.txt
 
 ```sh
 cd ~
-git clone git@github.com:knobiknows/all-the-bufo.git
+git clone https://github.com/knobiknows/all-the-bufo.git
 ```
 
 ### Run Server
