@@ -19,7 +19,7 @@
         <ul>
             {% for result in results %}
             <li>
-                <p><code>{{ result.path.name }}</code> with score {{ result.score }}</p>
+                <p><code>{{ result.path.name }}</code> with match score of {{ "%0.2f"| format(result.score|float) }}</p>
                 {% set image_url = "/assets/" ~ result.path.name %}
                 <img src="{{ image_url }}" />
             </li>
