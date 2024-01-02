@@ -14,7 +14,7 @@ def index():
 
     results = None
     if query:
-        results = searcher.search(query)
+        results = searcher.search(f"bufo ${query}")
 
     return render_template("index.html", results=results)
 
