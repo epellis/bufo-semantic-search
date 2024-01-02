@@ -5,7 +5,7 @@
 ```sh
 python3.11 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements.txt -f https://download.pytorch.org/whl/torch_stable.html
 ```
 
 ### Download Assets
@@ -15,11 +15,8 @@ cd ~
 git clone https://github.com/knobiknows/all-the-bufo.git
 ```
 
-### Run Server
+###
 
-```sh
-cd bufo-semantic-search
-
-# example:
-ALL_THE_BUFO_DIR="/Users/e/all-the-bufo/all-the-bufo" gunicorn "app:app"
+```
+sudo vim /etc/supervisor/conf.d/bufo.conf
 ```
