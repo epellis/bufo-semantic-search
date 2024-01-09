@@ -22,7 +22,7 @@ def _fp_to_bufo_name(filepath: Path):
 
 class BufoSearchIndex:
     def __init__(self) -> None:
-        self.model = SentenceTransformer("all-MiniLM-L6-v2")
+        self.model = SentenceTransformer("all-MiniLM-L12-v2")
 
         self.bufos = list(ALL_THE_BUFO_DIR.iterdir())
 
