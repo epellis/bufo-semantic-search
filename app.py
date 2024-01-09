@@ -1,3 +1,4 @@
+from pathlib import Path
 from flask import request
 from flask import Flask, render_template, send_from_directory
 from bufo.search_index import BufoSearchIndex, ALL_THE_BUFO_DIR
@@ -14,9 +15,14 @@ def index():
 
     results = None
     if query:
-        results = searcher.search(f"bufo ${query}")
+        results = searcher.search(query)
 
     return render_template("index.html", results=results)
+
+
+@app.route("/simple.css")
+def get_css():
+    return send_from_directory(Path("assets"), "simple.css")
 
 
 @app.route("/assets/<filename>")
